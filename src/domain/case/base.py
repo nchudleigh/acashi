@@ -1,16 +1,11 @@
-class Case:
-    def __init__(self, repo):
-        self.repo = repo
+class Response:
+    def __init__(self, data):
+        self.data = data
 
-    def execute(self, data):
-        if not data:
-            return res.ResponseFailure.build_from_invalid_data(data)
-        try:
-            return self.run(data)
-        except Exception as exc:
-            return res.ResponseFailure.build_system_error(
-                "{}: {}".format(exc.__class__.__name__, "{}".format(exc))
-            )
+
+class Case:
+    def execute(self, *args, **kwargs):
+        return self.run(*args, **kwargs)
 
     def run(self):
         raise NotImplementedError()

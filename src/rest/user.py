@@ -1,22 +1,20 @@
 from src.rest.base import BaseView
-from src.domain.case.get_user import GetUserUseCase
-from src.data.mem_repo import UserMemRepo
+from src.domain.case.user import GetUserUseCase
 
 
 class UserView(BaseView):
     def get(self, request, key):
-        repo = UserMemRepo()
-        case = GetUserUseCase(repo).run(key=key)
-        return "ok"
+        response = GetUserUseCase().execute(key=key)
+        return response
 
     def post(self):
-        # return CreateUserUseCase.run()
+        # return CreateUserUseCase.execute()
         raise NotImplementedError()
 
     def patch(self):
-        # return UpdateUserUseCase.run()
+        # return UpdateUserUseCase.execute()
         raise NotImplementedError()
 
     def delete(self):
-        # return DeleteUserUseCase.run()
+        # return DeleteUserUseCase.execute()
         raise NotImplementedError()
