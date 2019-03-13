@@ -21,3 +21,7 @@ class CreateUser(TestCase):
                 "email": "nchudleigh@gmail.com",
             }
         )
+
+        self.assertIsNotNone(result.data["key"])
+        self.assertEqual(result.data["first_name"], "Neil")
+        self.assertEqual(result.data["last_name"], "Chudleigh")

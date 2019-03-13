@@ -17,16 +17,16 @@ class GetUserUseCase(Case):
 
 class CreateUserUseCase(Case):
     def run(self, data):
-
         first_name = data.get("first_name")
         last_name = data.get("last_name")
         email = data.get("email")
+
         # check required variables are set
-        if first_name is None or last_name is None or email is None:
-            # TODO: error response
+        if not (first_name and last_name and email):
             return
 
         generated_key = uuid4().hex
+
         payload = {
             "key": f"user_{generated_key}",
             "first_name": first_name,
@@ -37,7 +37,7 @@ class CreateUserUseCase(Case):
 
         user = self.repo.create(payload)
 
-        return Response(user.to_dict())
+        return Response()
 
 
 class UpdateUserUseCase(Case):
