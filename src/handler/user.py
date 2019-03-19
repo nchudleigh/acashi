@@ -1,3 +1,4 @@
+from src.handler import Handler
 from src.domain.case.user import GetUserUseCase
 from src.data.user import UserRepo
 
@@ -15,6 +16,12 @@ They could be seen as a proxy, to keep the presentation layer and the domain lay
 
 class GetUserHandler(Handler):
     def go(self):
+        # probably abstracted within Handler or similar class
+        auth_repo = AuthRepo()
+        user_is_authenticated_uc = UserIsAuthenticatedUseCase(auth_repo)
+        user_is_authenticated_uc.go(token)
+        # end of auth
+
         user_repo = UserRepo()
         get_user_uc = GetUserUseCase(user_repo)
         return get_user_uc.go(key)

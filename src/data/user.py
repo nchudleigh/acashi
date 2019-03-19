@@ -1,5 +1,5 @@
 from src.data.base import MemRepo
-from src.domain.model.user import User
+from src.domain.model.user import UserDTO
 
 
 class UserRepo(MemRepo):
@@ -10,5 +10,5 @@ class UserRepo(MemRepo):
         ("created", "created_at"),
     )
 
-    domain_model = User
+    DTO = UserDTO
     table_name = "user"

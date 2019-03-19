@@ -1,15 +1,19 @@
 from src.domain.model.base import Model
+from collections import namedtuple
+
+
+UserDTO = namedtuple(
+    "UserDTO", ["key", "first_name", "last_name", "email", "created_at"]
+)
 
 
 class User(Model):
-    def __init__(
-        self, key=None, first_name=None, last_name=None, email=None, created_at=None
-    ):
-        self.key = key
-        self.first_name = first_name
-        self.last_name = last_name
-        self.email = email
-        self.created_at = created_at
+    DTO = UserDTO
 
-    def to_dict(self):
-        return vars(self)
+    def __init__(self, **kw):
+        self._fields = self.DTO._fields
+        for field in self._fields:
+            setattr(self, field, kw[field])
+
+    def to_dto(self):
+        return self.DTO([getattr(self, field) for field in self._fields])

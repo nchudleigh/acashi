@@ -1,4 +1,6 @@
 # domain object, innermost
+# will move a bunch of this functionality in to the base but have left in for clarity
+# TODO: DTO implementation
 class User(Model):
     def __init__(self, key, first_name, last_name, email, created_at):
         self.key = key

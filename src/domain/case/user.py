@@ -11,8 +11,8 @@ Use cases encapsulate core domain logic.
 
 class GetUserUseCase(Case):
     def go(self, key):
-        user = self.repo.get_by_key(key)
-        return Response(user.to_dict())
+        user_dto = self.repo.get_by_key(key)
+        return Response(user_dto)
 
 
 class CreateUserUseCase(Case):
@@ -27,17 +27,19 @@ class CreateUserUseCase(Case):
 
         generated_key = uuid4().hex
 
-        payload = {
-            "key": f"user_{generated_key}",
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "created_at": int(time()),
-        }
+        # NOTE: `key` and `created_at` could easily be abstracted into our Model Base class
+        # They are so common in our codebase I think this would be a reasonable gain
+        new_user = User(
+            key=f"user_{generated_key}",
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            created_at=int(time()),
+        )
 
-        user = self.repo.create(payload)
+        self.repo.create(new_user.to_dto())
 
-        return Response()
+        return Response(new_user)
 
 
 class UpdateUserUseCase(Case):
@@ -53,7 +55,7 @@ class UpdateUserUseCase(Case):
 
         user = self.repo.update(data)
 
-        return Response(user.to_dict())
+        return Response(user.to_dto())
 
 
 class DeleteUserUseCase(Case):
@@ -65,4 +67,4 @@ class DeleteUserUseCase(Case):
             return
         user = UserRepo().delete_by_key(key)
 
-        return Response(user.to_dict())
+        return Response(user.to_dto())

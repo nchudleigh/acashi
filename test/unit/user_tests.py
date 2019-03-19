@@ -5,15 +5,13 @@ from src.data.user import UserRepo
 
 class GetUser(TestCase):
     def test_success(self):
-        r = UserRepo()
-        uc = GetUserUseCase(r)
+        uc = GetUserUseCase(UserRepo)
         result = uc.go("user_x")
 
 
 class CreateUser(TestCase):
     def test_success(self):
-        r = UserRepo()
-        uc = CreateUserUseCase(r)
+        uc = CreateUserUseCase(UserRepo)
         result = uc.go(
             {
                 "first_name": "Neil",
