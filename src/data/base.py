@@ -35,7 +35,6 @@ class MemRepo:
 
     def _create(self, table: str, data: dict):
         row = self.from_domain(data)
-        print(row)
         TABLES[table].append(row)
         return self.to_domain(row)
 

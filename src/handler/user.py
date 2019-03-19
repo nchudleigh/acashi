@@ -3,7 +3,7 @@ from src.data.user import UserRepo
 
 """
 Actions mesh the data layer and the domain layer.
-More specifcally they initialize the Repo and register it to the UseCase.
+More specifcally they initialize the Repo and provide it to the UseCase.
 They then handle executing the UseCase, and giving back a response.
 
 They may just return the Response that the UseCase gives in a simple CRUD case.
@@ -13,13 +13,15 @@ They could be seen as a proxy, to keep the presentation layer and the domain lay
 """
 
 
-def GetUserAction(key):
-    r = UserRepo()
-    uc = GetUserUseCase(r)
-    return uc.go(key)
+class GetUserHandler(Handler):
+    def go(self):
+        user_repo = UserRepo()
+        get_user_uc = GetUserUseCase(user_repo)
+        return get_user_uc.go(key)
 
 
-def CreateUserAction(data):
-    r = UserRepo()
-    uc = CreateUserUseCase(r)
-    return uc.go(data)
+class CreateUserHandler(Handler):
+    def go(self):
+        r = UserRepo()
+        uc = CreateUserUseCase(r)
+        return uc.go(data)

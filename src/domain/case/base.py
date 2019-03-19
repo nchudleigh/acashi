@@ -9,12 +9,12 @@ class Response:
 
 
 class Case:
-    def __init__(self, repo=None):
-        if repo:
-            self.repo = repo
+    def __init__(self, Repo):
+        if Repo:
+            self.repo = Repo()
 
-    def go(self, *args, **kwargs):
-        return self.run(*args, **kwargs)
+    def run(self, *args, **kwargs):
+        return self.go(*args, **kwargs)
 
-    def run(self):
+    def go(self):
         raise NotImplementedError()

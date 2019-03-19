@@ -1,5 +1,5 @@
 from src.domain.case.base import Case, Response
-from src.data.user import UserRepo
+from src.domain.model.user import User
 
 from time import time
 from uuid import uuid4
@@ -10,13 +10,13 @@ Use cases encapsulate core domain logic.
 
 
 class GetUserUseCase(Case):
-    def run(self, key):
-        user = UserRepo().get_by_key(key)
+    def go(self, key):
+        user = self.repo.get_by_key(key)
         return Response(user.to_dict())
 
 
 class CreateUserUseCase(Case):
-    def run(self, data):
+    def go(self, data):
         first_name = data.get("first_name")
         last_name = data.get("last_name")
         email = data.get("email")
@@ -41,7 +41,7 @@ class CreateUserUseCase(Case):
 
 
 class UpdateUserUseCase(Case):
-    def run(self, data):
+    def go(self, data):
         # check required variables are set
         if (
             data.get("first_name") is None
@@ -57,9 +57,9 @@ class UpdateUserUseCase(Case):
 
 
 class DeleteUserUseCase(Case):
-    def run(self, request):
+    def go(self, request):
         # permissions checks
-        user = UserRepo().get_by_key(key)
+        user = self.repo().get_by_key(key)
         if user.archived:
             # TODO error response
             return

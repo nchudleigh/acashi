@@ -1,27 +1,31 @@
 from src.rest.base import BaseView
-from src.action.user import GetUserAction
+from src.handler.user import GetUserHandler, CreateUserHandler
 
 
 """
 This layer is a very very thin translation from the http handlers to the arguments
 that our Action expects.
-It does not handle _anything_ application specific.  It is simply an adapter to our actions.
-It can handle the response object (our domain output DTO) and translate it back to HTTP land.
+It does not handle _anything_ application specific.  It is simply an adapter to our handlers.
+It can handle the response object (our domain output DTO) and translate it back to JSON.
 """
 
 
 class UserView(BaseView):
-    def get(self, request, key):
-        return GetUserAction(key)
 
-    def post(self):
-        # return CreateUserUseCase.execute()
-        raise NotImplementedError()
+    # NOTE: these are going to be really repetitive
+    # a higher level class would make sense to abstract this
+    def get(self, request):
+        handler = GetUserHandler()
+        response = handler.go(request.data)
+        return response
+
+    def post(self, request):
+        handler = CreateUserHandler()
+        response = handler.go(request.data)
+        return response
 
     def patch(self):
-        # return UpdateUserUseCase.execute()
         raise NotImplementedError()
 
     def delete(self):
-        # return DeleteUserUseCase.execute()
         raise NotImplementedError()
