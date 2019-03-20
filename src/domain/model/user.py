@@ -16,4 +16,4 @@ class User(Model):
             setattr(self, field, kw[field])
 
     def to_dto(self):
-        return self.DTO([getattr(self, field) for field in self._fields])
+        return self.DTO(*[getattr(self, field) for field in self._fields])

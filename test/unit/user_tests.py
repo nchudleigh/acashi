@@ -5,21 +5,28 @@ from src.data.user import UserRepo
 
 class GetUser(TestCase):
     def test_success(self):
-        uc = GetUserUseCase(UserRepo)
-        result = uc.go("user_x")
+        use_case = GetUserUseCase(UserRepo)
+        response = use_case.go("user_x")
+        user = response.data
+
+        self.assertEqual(user.key, "user_x")
+        self.assertEqual(user.first_name, "Neil")
+        self.assertEqual(user.last_name, "Chudleigh")
 
 
 class CreateUser(TestCase):
     def test_success(self):
-        uc = CreateUserUseCase(UserRepo)
-        result = uc.go(
-            {
-                "first_name": "Neil",
-                "last_name": "Chudleigh",
-                "email": "nchudleigh@gmail.com",
-            }
-        )
+        use_case = CreateUserUseCase(UserRepo)
 
-        self.assertIsNotNone(result.data["key"])
-        self.assertEqual(result.data["first_name"], "Neil")
-        self.assertEqual(result.data["last_name"], "Chudleigh")
+        data = {
+            "first_name": "Neil",
+            "last_name": "Chudleigh",
+            "email": "nchudleigh@gmail.com",
+        }
+
+        response = use_case.go(data)
+        user = response.data
+
+        self.assertIsNotNone(user.key)
+        self.assertEqual(user.first_name, "Neil")
+        self.assertEqual(user.last_name, "Chudleigh")
