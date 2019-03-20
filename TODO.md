@@ -1,3 +1,4 @@
+ - [ ] Error Handling
  - [ ] External Service
  - [ ] Joins / ORM shit
  - [ ] Triggers implementation

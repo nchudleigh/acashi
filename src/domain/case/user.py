@@ -1,4 +1,4 @@
-from src.domain.case.base import Case, Response
+from src.domain.case import Case, Response
 from src.domain.model.user import User
 
 from time import time

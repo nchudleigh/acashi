@@ -15,16 +15,15 @@ They could be seen as a proxy, to keep the presentation layer and the domain lay
 
 
 class GetUserHandler(Handler):
-    def go(self):
+    def go(self, key):
         # probably abstracted within Handler or similar class
-        auth_repo = AuthRepo()
-        user_is_authenticated_uc = UserIsAuthenticatedUseCase(auth_repo)
-        user_is_authenticated_uc.go(token)
+        # auth_repo = AuthRepo()
+        # user_is_authenticated_uc = UserIsAuthenticatedUseCase(auth_repo)
+        # user_is_authenticated_uc.go(token)
         # end of auth
-
-        user_repo = UserRepo()
-        get_user_uc = GetUserUseCase(user_repo)
-        return get_user_uc.go(key)
+        get_user_usecase = GetUserUseCase(UserRepo)
+        response = get_user_usecase.go(key)
+        return response
 
 
 class CreateUserHandler(Handler):
