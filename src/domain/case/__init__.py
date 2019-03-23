@@ -4,8 +4,9 @@ class Request:
 
 
 class Response:
-    def __init__(self, data):
+    def __init__(self, data, success=True):
         self.data = data
+        self.success = success
 
     def __dict__(self):
         if hasattr(data, "_asdict"):
