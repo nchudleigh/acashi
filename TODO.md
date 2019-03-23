@@ -1,9 +1,9 @@
+ - [ ] Authentication
  - [ ] Error Handling
  - [ ] External Service
  - [ ] Joins / ORM shit
  - [ ] Triggers implementation
  - [ ] Signals Implementation
  - [ ] Test Cases with Robust Mocking
- - [ ] Authentication
  - [ ] Permissions
  - [ ] Task Kickoff (Solution? rest -> handler -> signal -> tasks -> handler -> uc -> repo)
