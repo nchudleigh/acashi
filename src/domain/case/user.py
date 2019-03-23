@@ -37,7 +37,9 @@ class CreateUserUseCase(Case):
             created_at=int(time()),
         )
 
-        self.repo.create(new_user.to_dto())
+        new_user_dto = new_user.to_dto()
+
+        self.repo.create(new_user_dto)
 
         return Response(new_user)
 
