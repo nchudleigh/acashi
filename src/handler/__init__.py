@@ -3,3 +3,6 @@ class Handler:
         go_func = getattr(self, "go")
         if not go_func and callable(go_func):
             raise NotImplementedError("Handler's must define a go function")
+
+    def run(self, *args, **kwargs):
+        self.go(*args, **kwargs)
