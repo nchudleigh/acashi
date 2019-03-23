@@ -1,4 +1,4 @@
-from test.base import TestCase
+from test import TestCase
 from src.domain.case.user import GetUserUseCase, CreateUserUseCase
 from src.data.user import UserRepo
 
