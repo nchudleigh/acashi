@@ -17,7 +17,7 @@ class CreateUserView(BaseView):
 
     def post(self, request):
         handler = CreateUserHandler()
-        response = handler.go(key)
+        response = handler.run(key)
         return response
 
 
@@ -27,7 +27,7 @@ class UserView(BaseView):
 
     def get(self, request, key):
         handler = GetUserHandler()
-        response = handler.go(key)
+        response = handler.run(key)
         return response
 
     def patch(self, request, key):
