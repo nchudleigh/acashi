@@ -1,9 +1,9 @@
-from src.handler import Handler
+from src.handler import Handler, Response
 from src.domain.case.user import GetUserUseCase
 from src.data.user import UserRepo
 
 """
-Actions mesh the data layer and the domain layer.
+Handlers mesh the data layer and the domain layer.
 More specifcally they initialize the Repo and provide it to the UseCase.
 They then handle executing the UseCase, and giving back a response.
 
@@ -16,18 +16,13 @@ They could be seen as a proxy, to keep the presentation layer and the domain lay
 
 class GetUserHandler(Handler):
     def go(self, key):
-        # probably abstracted within Handler or similar class
-        # auth_repo = AuthRepo()
-        # user_is_authenticated_uc = UserIsAuthenticatedUseCase(auth_repo)
-        # user_is_authenticated_uc.go(token)
-        # end of auth
         get_user_usecase = GetUserUseCase(UserRepo)
-        response = get_user_usecase.go(key)
-        return response
+        user = get_user_usecase.run(key)
+        return Response("Got User", user)
 
 
 class CreateUserHandler(Handler):
-    def go(self):
-        r = UserRepo()
-        uc = CreateUserUseCase(r)
-        return uc.go(data)
+    def go(self, payload):
+        create_user = CreateUserUseCase(UserRepo)
+        create_user.run(payload.data)
+        return Response("Created User", user)
