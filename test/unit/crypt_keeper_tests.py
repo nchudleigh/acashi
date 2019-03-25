@@ -1,5 +1,5 @@
 from test import TestCase
-from src.libraries.crypt_keeper import CryptKeeper
+from src.library.crypt_keeper import CryptKeeper
 
 
 DEFAULT_PASSWORD = "howsyourknee"
