@@ -1,4 +1,7 @@
- - [ ] Authentication
+ - [~] Authentication
+    - [~] Token based auth
+    - [ ] Key based auth
+    - [ ] OAuth/SSO
  - [ ] Error Handling
  - [ ] External Service
  - [ ] Joins / ORM shit
@@ -7,3 +10,4 @@
  - [ ] Test Cases with Robust Mocking
  - [ ] Permissions
  - [ ] Task Kickoff (Solution? rest -> handler -> signal -> tasks -> handler -> uc -> repo)
+ - [ ] Optional type checking (static analysis)
