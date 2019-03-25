@@ -31,6 +31,9 @@ class MemRepo:
             )
         return self.to_dto(row)
 
+    def get_by_attr(self, attr, val):
+        return self._get(self.table, attr, val)
+
     def _get(self, table: str, attr: str, val: str):
         for row in TABLES.get(table):
             if row.get(attr) == val:
