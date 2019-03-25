@@ -9,4 +9,4 @@ def register_views(app):
     view_registrar.register_view(UserView)
     view_registrar.register_view(CreateUserView)
     # print registered routes
-    pprint([rul for rul in app.url_map.iter_rules()])
+    # pprint([rul for rul in app.url_map.iter_rules()])
