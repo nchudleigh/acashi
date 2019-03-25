@@ -1,4 +1,4 @@
-from src.domain.case import Case, Response
+from src.domain.case import Case
 from src.domain.model.user import User
 
 from time import time
@@ -10,13 +10,19 @@ Use cases encapsulate core domain logic.
 
 
 class GetUserUseCase(Case):
-    def go(self, key):
+    def go(self, key: str):
         user_dto = self.repo.get_by_key(key)
-        return Response(user_dto)
+        return user_dto
+
+
+class GetUserByEmailUseCase(Case):
+    def go(self, email: str):
+        user_dto = self.repo.get_by_email(email)
+        return user_dto
 
 
 class CreateUserUseCase(Case):
-    def go(self, data):
+    def go(self, data: dict):
         first_name = data.get("first_name")
         last_name = data.get("last_name")
         email = data.get("email")
@@ -41,11 +47,11 @@ class CreateUserUseCase(Case):
 
         self.repo.create(new_user_dto)
 
-        return Response(new_user)
+        return new_user
 
 
 class UpdateUserUseCase(Case):
-    def go(self, data):
+    def go(self, data: dict):
         # check required variables are set
         if (
             data.get("first_name") is None
@@ -55,18 +61,11 @@ class UpdateUserUseCase(Case):
             # TODO: error response
             return
 
-        user = self.repo.update(data)
+        user_dto = self.repo.update(data)
 
-        return Response(user.to_dto())
+        return user_dto
 
 
 class DeleteUserUseCase(Case):
-    def go(self, request):
-        # permissions checks
-        user = self.repo().get_by_key(key)
-        if user.archived:
-            # TODO error response
-            return
-        user = UserRepo().delete_by_key(key)
-
-        return Response(user.to_dto())
+    def go(self, key: str):
+        user = self.repo.delete_by_key(key)
