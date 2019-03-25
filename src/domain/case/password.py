@@ -1,6 +1,12 @@
-from src.domain.case import Case, Response
-from src.domain.model.user import Password
-from src.libraries.crypt_keeper import CryptKeeper
+from src.domain.case import Case
+from src.domain.model.password import Password
+from src.library.crypt_keeper import CryptKeeper
+
+
+class GetPasswordByUserKeyUseCase(Case):
+    def go(self, user_key):
+        password_dto = self.repo.get_by_user_key(user_key)
+        return password_dto
 
 
 class SetPasswordUseCase(Case):
@@ -9,27 +15,24 @@ class SetPasswordUseCase(Case):
 
         hashed_password, salt = crypt_keeper.hash_password(password)
 
-        new_password = Password(
-            hashed=hashed_password,
-            salt=salt
-            user_key=user_key
-        )
+        new_password = Password(hashed=hashed_password, salt=salt, user_key=user_key)
 
         new_password_dto = new_password.to_dto()
 
         self.repo.create(new_password_dto)
 
-        return Response("New password set")
+        return new_password_dto
+
 
 class CheckPasswordUseCase(Case):
-    def go(self, password_attempt, password_key):
+    def go(self, password_attempt, password):
 
         crypt_keeper = CryptKeeper()
 
-        password = self.repo.get(password_key)
+        is_valid = crypt_keeper.check_password(
+            password_attempt, password.hashed, password.salt
+        )
 
-        successful = crypt_keeper.check_password(password_attempt, password.hashed, password.salt)
+        message = "Password is valid" if is_valid else "Password is invalid"
 
-        message = "Password is valid" if successful else "Password is invalid"
-
-        return Response(message, success=successful)
+        return is_valid

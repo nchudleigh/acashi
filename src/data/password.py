@@ -1,5 +1,5 @@
 from src.data import MemRepo
-from src.domain.model.user import PasswordDTO
+from src.domain.model.password import PasswordDTO
 
 
 class PasswordRepo(MemRepo):
