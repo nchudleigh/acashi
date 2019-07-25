@@ -3,6 +3,7 @@
     - [ ] Key based auth
     - [ ] OAuth/SSO
  - [ ] Error Handling
+ - [ ] Validation
  - [ ] External Service
  - [ ] Joins / ORM shit
  - [ ] Triggers implementation
