@@ -7,5 +7,6 @@ UserDTO = namedtuple(
 )
 
 
-class User(Model):
-    DTO = UserDTO
+class User(Model, UserDTO):
+    def validate(self):
+        pass
