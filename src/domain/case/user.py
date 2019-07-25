@@ -11,41 +11,29 @@ Use cases encapsulate core domain logic.
 
 class GetUserUseCase(Case):
     def go(self, key: str):
-        user_dto = self.repo.get_by_key(key)
+        user_dto = self.UserRepo.get_by_key(key)
         return user_dto
 
 
 class GetUserByEmailUseCase(Case):
     def go(self, email: str):
-        user_dto = self.repo.get_by_email(email)
+        user_dto = self.UserRepo.get_by_email(email)
         return user_dto
 
 
 class CreateUserUseCase(Case):
     def go(self, data: dict):
-        first_name = data.get("first_name")
-        last_name = data.get("last_name")
-        email = data.get("email")
-
-        # check required variables are set
-        if not (first_name and last_name and email):
-            return
 
         generated_key = uuid4().hex
+        user_key = f"user_{generated_key}"
 
         # NOTE: `key` and `created_at` could easily be abstracted into our Model Base class
         # They are so common in our codebase I think this would be a reasonable gain
-        new_user = User(
-            key=f"user_{generated_key}",
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            created_at=int(time()),
-        )
+        new_user = User(key=user_key, created_at=int(time()), **data)
 
-        new_user_dto = new_user.to_dto()
+        user_repo = self.UserRepo()
 
-        self.repo.create(new_user_dto)
+        user_repo.create(new_user)
 
         return new_user
 
@@ -61,11 +49,11 @@ class UpdateUserUseCase(Case):
             # TODO: error response
             return
 
-        user_dto = self.repo.update(data)
+        user_dto = self.UserRepo.update(data)
 
         return user_dto
 
 
 class DeleteUserUseCase(Case):
     def go(self, key: str):
-        user = self.repo.delete_by_key(key)
+        user = self.UserRepo.delete_by_key(key)
