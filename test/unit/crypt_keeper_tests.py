@@ -32,7 +32,7 @@ class HashPassword(TestCase):
         self.assertTrue(len(hashed_password) > minimum_length)
 
     def test_type(self):
-        """Hased password and salt are strings"""
+        """Hashed password and salt are strings"""
         hashed_password, salt = self.hash_password()
         self.assertTrue(type(hashed_password) == str)
         self.assertTrue(type(salt) == str)
@@ -77,6 +77,6 @@ class CheckPassword(TestCase):
         hashed_password, salt = self.hash_password()
 
         self.assertTrue(self.check_password(DEFAULT_PASSWORD, salt, hashed_password))
-        self.assertTrue(
-            self.check_password("thatsallicareabout", salt, hashed_password) == False
+        self.assertFalse(
+            self.check_password("thatsallicareabout", salt, hashed_password)
         )
