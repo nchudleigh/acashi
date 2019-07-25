@@ -16,13 +16,13 @@ They could be seen as a proxy, to keep the presentation layer and the domain lay
 
 class GetUserHandler(Handler):
     def go(self, key):
-        get_user_usecase = GetUserUseCase(UserRepo)
+        get_user_usecase = GetUserUseCase(UserRepo=UserRepo)
         user = get_user_usecase.run(key)
         return Response("Got User", user)
 
 
 class CreateUserHandler(Handler):
     def go(self, payload):
-        create_user = CreateUserUseCase(UserRepo)
+        create_user = CreateUserUseCase(UserRepo=UserRepo)
         create_user.run(payload.data)
         return Response("Created User", user)
