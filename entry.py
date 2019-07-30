@@ -2,7 +2,7 @@ from src.data.dao.password import PasswordDAO
 from src.data.dao.user import UserDAO
 from src.data.dao.base import BaseDAO
 
-from src.database.sqlalchemy import create_engine, create_session_class
+from db.sqlalchemy import create_engine, create_session_class
 from src.library.profile import profiled
 
 

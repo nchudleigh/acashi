@@ -5,5 +5,4 @@ For example:
 When I create a user, they MUST have a unique lowercased email.
 When a reward is created its amount is represented in cents.
 
-
 It will always be the biggest collection of tests in the project.

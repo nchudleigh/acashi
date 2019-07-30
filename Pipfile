@@ -13,6 +13,7 @@ pyjwt = "*"
 cerberus = "*"
 sqlalchemy = "*"
 alembic = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"

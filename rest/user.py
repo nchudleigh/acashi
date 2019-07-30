@@ -1,5 +1,5 @@
 from src.rest.base import BaseView
-from src.handler.user import GetUserHandler, CreateUserHandler
+from src.domain.service.user import UserService
 
 
 """
@@ -16,8 +16,9 @@ class CreateUserView(BaseView):
     path = "/users"
 
     def post(self, request):
-        handler = CreateUserHandler()
-        response = handler.run(key)
+        data = request.json()
+        user_entity = UserService().create(data)
+        response = dict(user_entity)
         return response
 
 
@@ -26,8 +27,8 @@ class UserView(BaseView):
     path = "/users/<key>"
 
     def get(self, request, key):
-        handler = GetUserHandler()
-        response = handler.run(key)
+        user_entity = UserService().get(key)
+        response = dict(user_entity)
         return response
 
     def patch(self, request, key):
